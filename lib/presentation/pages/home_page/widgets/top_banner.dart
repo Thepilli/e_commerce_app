@@ -14,7 +14,7 @@ class TopBanner extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 150.h,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Theme.of(context).colorScheme.secondary),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Theme.of(context).colorScheme.secondary),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

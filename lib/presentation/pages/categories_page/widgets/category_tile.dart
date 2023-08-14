@@ -16,13 +16,13 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CategoryModel productModelProvider = Provider.of<CategoryModel>(context);
+    final CategoryModel categoryModelProvider = Provider.of<CategoryModel>(context);
 
     return Container(
       child: Stack(
         alignment: Alignment.center,
         children: [
-          FancyShimmerImage(imageUrl: productModelProvider.image),
+          FancyShimmerImage(imageUrl: categoryModelProvider.image),
           Positioned(
             bottom: 0,
             child: Container(
@@ -32,7 +32,7 @@ class CategoryTile extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary.withOpacity(.5), borderRadius: BorderRadius.circular(20)),
                 child: Center(
                   child: Text(
-                    productModelProvider.name,
+                    categoryModelProvider.name,
                     style: appstyle(16, AppColors.txtLight, FontWeight.normal),
                   ),
                 )),

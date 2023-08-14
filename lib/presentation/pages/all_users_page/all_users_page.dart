@@ -1,3 +1,6 @@
+import 'package:e_commerce_app/models/user_model.dart';
+import 'package:e_commerce_app/services/user_service.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 class AllUsersPage extends StatelessWidget {
@@ -10,19 +13,32 @@ class AllUsersPage extends StatelessWidget {
         title: const Text('All users'),
       ),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              tileColor: Theme.of(context).colorScheme.secondary,
-              leading: CircleAvatar(child: Image.asset('assets/images/avatar.png')),
-              title: const Text('fist last'),
-              subtitle: const Text('email@email.com'),
-              trailing: const Text('role'),
+          child: FutureBuilder(
+        future: UserApiService.getAllUsers(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          },
-        ),
-      ),
+          }
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (BuildContext context, int index) {
+              List<UserModel>? users = snapshot.data;
+              return ListTile(
+                tileColor: Theme.of(context).colorScheme.secondary,
+                leading: CircleAvatar(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: FancyShimmerImage(height: 100, boxFit: BoxFit.contain, imageUrl: users![index].avatar))),
+                title: Text(users[index].name),
+                subtitle: Text(users[index].email),
+                trailing: Text(users[index].role),
+              );
+            },
+          );
+        },
+      )),
     );
   }
 }

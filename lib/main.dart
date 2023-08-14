@@ -1,16 +1,21 @@
 import 'package:e_commerce_app/core/setting/setting_controller.dart';
 import 'package:e_commerce_app/core/setting/setting_service.dart';
 import 'package:e_commerce_app/core/themes/app_theme.dart';
+import 'package:e_commerce_app/models/product_provider.dart';
 import 'package:e_commerce_app/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();
-  runApp(MyApp(
-    settingsController: settingsController,
+  runApp(ChangeNotifierProvider(
+    create: (context) => ProductProvider(),
+    child: MyApp(
+      settingsController: settingsController,
+    ),
   ));
 }
 

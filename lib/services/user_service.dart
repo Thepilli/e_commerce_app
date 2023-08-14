@@ -1,20 +1,19 @@
 import 'dart:io';
 
 import 'package:e_commerce_app/core/exceptions/service_exceptions.dart';
-import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
-const String BASE_URL = 'fakestoreapi.com';
+const String BASE_URL = 'api.escuelajs.co';
 
-class ProductApiService {
-  static Future<List<ProductModel>?> getAllProducts({String? limit}) async {
-    var uri = Uri.https(BASE_URL, 'products', {'limit': limit});
-
+class UserApiService {
+  static Future<List<UserModel>?> getAllUsers() async {
+    var uri = Uri.https(BASE_URL, 'api/v1/users');
     try {
       final response = await http.get(uri);
       switch (response.statusCode) {
         case 200:
-          List<ProductModel> model = productModelFromJson(response.body);
+          List<UserModel> model = userModelFromJson(response.body);
           return model;
         case 401:
           throw InvalidApiKeyException();
